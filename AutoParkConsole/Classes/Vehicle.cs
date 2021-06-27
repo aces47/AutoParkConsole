@@ -15,7 +15,7 @@ namespace AutoParkConsole.Classes
 
 	public class Vehicle : IComparable<Vehicle>
 	{
-		readonly Engine _Engine;
+		readonly AbstractEngine _AbstractEngine;
 		readonly VehicleType _VehicleType;
 		readonly string _ModelName;
 		string _GosNumber;
@@ -31,7 +31,7 @@ namespace AutoParkConsole.Classes
 		}
 
 		public Vehicle(
-			Engine engine,
+			AbstractEngine engine,
 			VehicleType type,
 			string model,
 			string gosNumber,
@@ -41,7 +41,7 @@ namespace AutoParkConsole.Classes
 			Color color,
 			int tankCapacity = 0)
 		{
-			_Engine = engine;
+			_AbstractEngine = engine;
 			_VehicleType = type;
 			_ModelName = model;
 			_GosNumber = gosNumber;
@@ -52,7 +52,7 @@ namespace AutoParkConsole.Classes
 			_TankCapacity = tankCapacity;
 		}
 
-		public Engine GetEngineTypeOfVehicle() => _Engine;
+		public AbstractEngine GetEngineTypeOfVehicle() => _AbstractEngine;
 		public string GetVehicleType() => $"{_VehicleType}";
 		public string GetModelName() => $"{_ModelName}";
 		public void SetGosNumber(string gosNumber) => _GosNumber = gosNumber;
@@ -68,7 +68,7 @@ namespace AutoParkConsole.Classes
 		public double GetTankCapacity() => _TankCapacity;
 
 		public double GetCalcTaxPerMonth() =>
-			(_Weight * 0.0013d) + (_VehicleType.GetTaxCoefficient() * _Engine.GetTaxCoefficientByEngineType() * 30) + 5;
+			(_Weight * 0.0013d) + (_VehicleType.GetTaxCoefficient() * _AbstractEngine.GetTaxCoefficientByEngineType() * 30) + 5;
 
 		public override bool Equals(object obj)
 		{
@@ -84,7 +84,7 @@ namespace AutoParkConsole.Classes
 			return false;
 		}
 		public override string ToString() =>
-			$"{_Engine},{_VehicleType},{_ModelName},{_GosNumber},{_Weight},{_ManufactureYear},{_Mileage},{_Color},{_TankCapacity}";
+			$"{_AbstractEngine},{_VehicleType},{_ModelName},{_GosNumber},{_Weight},{_ManufactureYear},{_Mileage},{_Color},{_TankCapacity}";
 
 		public int CompareTo(Vehicle other)
 		{

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoParkConsole.Classes
 {
-	internal class ElectricalEngine : Engine
+	internal class ElectricalEngine : AbstractEngine
 	{
 		double _ElectricityConsumption;
 
@@ -18,7 +18,7 @@ namespace AutoParkConsole.Classes
 			_ElectricityConsumption = electricityConsumption;
 		}
 
-		public double GetMaxKilometers(double batterySize) => batterySize / _ElectricityConsumption;
+		public override double GetMaxKilometers(double batterySize) => batterySize / _ElectricityConsumption;
 
 		public override string ToString() => 
 			$"{GetEngineTypeName()},{GetTaxCoefficientByEngineType()},{_ElectricityConsumption}";

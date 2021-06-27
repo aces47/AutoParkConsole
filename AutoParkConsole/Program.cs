@@ -22,15 +22,22 @@ namespace AutoParkConsole
 			Console.WriteLine("Array of vehicles:");
 			VehicleHelper.PrintVehicleArray(vehicles);
 
-			for (int counter = 0; counter < vehicles.Length - 1; counter++)
+			Vehicle maxKilometersVehicle = vehicles[0];
+			double maxKilometersDistance = 
+				maxKilometersVehicle.GetEngineTypeOfVehicle().GetMaxKilometers(vehicles[0].GetTankCapacity());
+
+			for (int counter = 1; counter < vehicles.Length; counter++)
 			{
-				if (vehicles[counter].Equals(vehicles[counter + 1]))
+				double maxKilometersCurrentVehicleDistance =
+					vehicles[counter].GetEngineTypeOfVehicle().GetMaxKilometers(vehicles[counter].GetTankCapacity());
+				if (maxKilometersDistance< maxKilometersCurrentVehicleDistance)
 				{
-					Console.WriteLine("Found equal vehicles:");
-					Console.WriteLine($"{vehicles[counter]}");
-					Console.WriteLine($"{vehicles[counter + 1]}");
+					maxKilometersDistance = maxKilometersCurrentVehicleDistance;
+					maxKilometersVehicle = vehicles[counter];
 				}
 			}
+
+			Console.WriteLine($"This vehicle can drive max distance:{maxKilometersVehicle}\nMax distance is:{maxKilometersDistance:0.00}");
 
 		}
 	}

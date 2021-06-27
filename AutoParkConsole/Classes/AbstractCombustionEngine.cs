@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoParkConsole.Classes
 {
-	class CombustionEngine : Engine
+	abstract class AbstractCombustionEngine : AbstractEngine
 	{
 		protected double _EngineCapacity;
 		protected double _FuelConsumptionPer100;
@@ -16,9 +16,9 @@ namespace AutoParkConsole.Classes
 		public void SetFuelConsumptionPer100(double fuelConsumprion) => _FuelConsumptionPer100 = fuelConsumprion;
 		public double GetFuelConsumptionPer100() => _FuelConsumptionPer100;
 
-		public double GetMaxKilometers(double tankCapacity) => tankCapacity * 100 / _FuelConsumptionPer100;
+		public override double GetMaxKilometers(double tankCapacity) => tankCapacity * 100 / _FuelConsumptionPer100;
 
-		public CombustionEngine(string typeName, double taxCoefficientByEngine)
+		public AbstractCombustionEngine(string typeName, double taxCoefficientByEngine)
 			: base(typeName, taxCoefficientByEngine)
 		{
 

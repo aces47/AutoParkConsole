@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoParkConsole.Classes
 {
-	class DieselEngine : CombustionEngine
+	class DieselEngine : AbstractCombustionEngine
 	{
 		public DieselEngine(double engineCapacity, double fuelConsumptionPer100) : base("Diesel", 1.2d)
 		{

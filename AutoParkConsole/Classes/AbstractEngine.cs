@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoParkConsole.Classes
 {
-	public abstract class Engine
+	public abstract class AbstractEngine
 	{
 		readonly string _EngineTypeName;
 		readonly double _TaxCoefficientByEngineType;
@@ -14,7 +14,9 @@ namespace AutoParkConsole.Classes
 		public string GetEngineTypeName() => _EngineTypeName;
 		public double GetTaxCoefficientByEngineType() => _TaxCoefficientByEngineType;
 
-		public Engine( string engineTypeName,double taxCoefficientByEngineType = 1d)
+		public abstract double GetMaxKilometers(double tankCapacity);
+
+		public AbstractEngine( string engineTypeName,double taxCoefficientByEngineType = 1d)
 		{
 			_EngineTypeName = engineTypeName;
 			_TaxCoefficientByEngineType = taxCoefficientByEngineType;
