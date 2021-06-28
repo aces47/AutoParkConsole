@@ -8,8 +8,9 @@ namespace AutoParkConsole.Classes
 {
 	internal class VehicleType
 	{
-		private string _typeName;
-		private double _taxCoefficient;
+		public string TypeName { get; set; }
+		public double TaxCoefficient { get; set; }
+
 
 		public VehicleType()
 		{
@@ -18,23 +19,16 @@ namespace AutoParkConsole.Classes
 
 		public VehicleType(string name, double taxCoefficient = 1d)
 		{
-			_typeName = name;
-			_taxCoefficient = taxCoefficient;
+			TypeName = name;
+			TaxCoefficient = taxCoefficient;
 		}
-
-		public string GetTypeName() => _typeName;
-
-		public void SetTypeName(string name) => _typeName = name;
-
-		public double GetTaxCoefficient() => _taxCoefficient;
-
-		public void SetTaxCoefficient(double taxCoefficient) => _taxCoefficient = taxCoefficient;
 
 		public void Display()
 		{
-			Console.WriteLine($"TypeName = {_typeName}\nTaxCoeffiient = {_taxCoefficient}");
+			Console.WriteLine($"TypeName = {TypeName}\nTaxCoeffiient = {TaxCoefficient}");
 		}
 
-		public override string ToString() => $"{_typeName},{_taxCoefficient}";
+		public override string ToString() => $"{TypeName},{TaxCoefficient}";
+
 	}
 }
