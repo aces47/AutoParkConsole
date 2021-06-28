@@ -6,17 +6,12 @@ using System.Threading.Tasks;
 
 namespace AutoParkConsole.Classes
 {
-	class CombustionEngine : Engine
+	internal class CombustionEngine : Engine
 	{
-		protected double _EngineCapacity;
-		protected double _FuelConsumptionPer100;
+		public double EngineCapacity { get; set; }
+		public double FuelConsumptionPer100 { get; set; }
 
-		public void SetEngineCapacity(double engineCapacity) => _EngineCapacity = engineCapacity;
-		public double GetEngineCapacity() => _EngineCapacity;
-		public void SetFuelConsumptionPer100(double fuelConsumprion) => _FuelConsumptionPer100 = fuelConsumprion;
-		public double GetFuelConsumptionPer100() => _FuelConsumptionPer100;
-
-		public double GetMaxKilometers(double tankCapacity) => tankCapacity * 100 / _FuelConsumptionPer100;
+		public double GetMaxKilometers(double tankCapacity) => tankCapacity * 100 / FuelConsumptionPer100;
 
 		public CombustionEngine(string typeName, double taxCoefficientByEngine)
 			: base(typeName, taxCoefficientByEngine)
