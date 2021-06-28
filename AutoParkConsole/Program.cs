@@ -24,20 +24,21 @@ namespace AutoParkConsole
 				150));
 
 			var vehilesForQueue = collections.GetVehicles();
-			MyQueue<Vehicle> queue = new MyQueue<Vehicle>();
+			MyStack<Vehicle> stack = new MyStack<Vehicle>();
 
-			Console.WriteLine("Queue:");
-			for(int i=0;i<vehilesForQueue.Count;i++)
+			Console.WriteLine("Stack:");
+			for (int i = 0; i < vehilesForQueue.Count; i++)
 			{
-				queue.Enqueue(vehilesForQueue[i]);
-				Console.WriteLine($"Automobile {vehilesForQueue[i].GetModelName()} in queue");
+				stack.Push(vehilesForQueue[i]);
+				Console.WriteLine($"Automobile {vehilesForQueue[i].GetModelName()} entering garage");
 			}
 
-			Console.WriteLine("Washed vehicles:");
-			for(int i=0;i<queue.Count();i++)
+			Console.WriteLine("Vehicles leaving the garage:");
+			int stackCount = stack.Count();
+			for (int i = 0; i < stackCount - 1; i++)
 			{
-				Vehicle vehicle = queue.Dequeue();
-				Console.WriteLine($"Automobile {vehicle.GetModelName()} washed");
+				Vehicle vehicle = stack.Pop();
+				Console.WriteLine($"Automobile {vehicle.GetModelName()} leaved");
 			}
 		}
 	}
