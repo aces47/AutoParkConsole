@@ -8,6 +8,7 @@ namespace AutoParkConsole.Classes
 {
 	public class VehicleType
 	{
+		int _Id;
 		string _TypeName;
 		double _TaxCoefficient;
 
@@ -16,18 +17,17 @@ namespace AutoParkConsole.Classes
 
 		}
 
-		public VehicleType(string name,double taxCoefficient = 1d)
+		public VehicleType(int id, string name, double taxCoefficient = 1d)
 		{
 			_TypeName = name;
 			_TaxCoefficient = taxCoefficient;
+			_Id = id;
 		}
 
+		public int GetTypeId() => _Id;
 		public string GetTypeName() => _TypeName;
-
 		public void SetTypeName(string name) => _TypeName = name;
-
 		public double GetTaxCoefficient() => _TaxCoefficient;
-
 		public void SetTaxCoefficient(double taxCoefficient) => _TaxCoefficient = taxCoefficient;
 
 		public void Display()
