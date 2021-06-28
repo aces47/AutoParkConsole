@@ -18,7 +18,7 @@ namespace AutoParkConsole.Classes
 
 		public override double GetMaxKilometers(double tankCapacity) => tankCapacity * 100 / _FuelConsumptionPer100;
 
-		protected AbstractCombustionEngine(string typeName, double taxCoefficientByEngine)
+		public AbstractCombustionEngine(string typeName, double taxCoefficientByEngine)
 			: base(typeName, taxCoefficientByEngine)
 		{
 

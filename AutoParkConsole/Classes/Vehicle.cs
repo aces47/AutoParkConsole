@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace AutoParkConsole.Classes
 {
@@ -16,7 +15,6 @@ namespace AutoParkConsole.Classes
 
 	public class Vehicle : IComparable<Vehicle>
 	{
-		int _Id = 0;
 		readonly AbstractEngine _AbstractEngine;
 		readonly VehicleType _VehicleType;
 		readonly string _ModelName;
@@ -26,7 +24,6 @@ namespace AutoParkConsole.Classes
 		int _Mileage;
 		Color _Color;
 		double _TankCapacity;
-		List<Rent> _Rents;
 
 		public Vehicle()
 		{
@@ -34,7 +31,6 @@ namespace AutoParkConsole.Classes
 		}
 
 		public Vehicle(
-			int id,
 			AbstractEngine engine,
 			VehicleType type,
 			string model,
@@ -43,7 +39,7 @@ namespace AutoParkConsole.Classes
 			int manufactureYear,
 			int mileage,
 			Color color,
-			double tankCapacity = 0d)
+			int tankCapacity = 0)
 		{
 			_AbstractEngine = engine;
 			_VehicleType = type;
@@ -54,14 +50,10 @@ namespace AutoParkConsole.Classes
 			_Mileage = mileage;
 			_Color = color;
 			_TankCapacity = tankCapacity;
-			_Id = id;
 		}
 
-		public int GetId() => _Id;
-		public List<Rent> GetVehicleRentsList() => _Rents;
-		public void SetVehicleRentsList(List<Rent> rents) => _Rents = rents;
 		public AbstractEngine GetEngineTypeOfVehicle() => _AbstractEngine;
-		public VehicleType GetVehicleType() => _VehicleType;
+		public string GetVehicleType() => $"{_VehicleType}";
 		public string GetModelName() => $"{_ModelName}";
 		public void SetGosNumber(string gosNumber) => _GosNumber = gosNumber;
 		public string GetGosNumber() => $"{_GosNumber}";
@@ -74,22 +66,6 @@ namespace AutoParkConsole.Classes
 		public Color GetColor() => _Color;
 		public void SetTankCapacity(double tankCapacity) => _TankCapacity = tankCapacity;
 		public double GetTankCapacity() => _TankCapacity;
-		public decimal GetTotalVehicleIncome()
-		{
-			if(_Rents!=null)
-			{
-				decimal totalIncome = 0;
-				foreach (Rent rent in _Rents)
-				{
-					totalIncome += rent.GetRentCost();
-				}
-
-				return totalIncome;
-			}
-
-			return 0m;
-		}
-		public decimal GetTotalProfit() => GetTotalVehicleIncome() - (decimal)GetCalcTaxPerMonth();
 
 		public double GetCalcTaxPerMonth() =>
 			(_Weight * 0.0013d) + (_VehicleType.GetTaxCoefficient() * _AbstractEngine.GetTaxCoefficientByEngineType() * 30) + 5;
@@ -123,5 +99,6 @@ namespace AutoParkConsole.Classes
 				return thisTaxCoefficient == otherTaxCoefficient ? 0 : 1;
 			}
 		}
+
 	}
 }
