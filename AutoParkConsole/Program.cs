@@ -14,18 +14,18 @@ namespace AutoParkConsole
 			double max = vehicleTypes[0].GetTaxCoefficient();
 			double currentTax;
 
-			for(int counter=0; counter<vehicleTypes.Length;counter++)
+			for (int counter = 0; counter < vehicleTypes.Length; counter++)
 			{
 				currentTax = vehicleTypes[counter].GetTaxCoefficient();
 				if (max < currentTax)
 				{
 					max = currentTax;
 				}
-					
+
 				vehicleTypes[counter].Display();
 				averageTax += currentTax;
 
-				if(counter == vehicleTypes.Length-1)
+				if (counter == vehicleTypes.Length - 1)
 				{
 					averageTax /= vehicleTypes.Length;
 					vehicleTypes[counter].SetTaxCoefficient(1.3d);
