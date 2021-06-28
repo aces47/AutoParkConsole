@@ -42,7 +42,7 @@ namespace AutoParkConsole.Classes
 		}
 
 		public double GetCalcTaxPerMonth() =>
-			(Weight * 0.0013d) + (VehicleType.TaxCoefficient * Engine.GetTaxCoefficientByEngineType() * 30) + 5;
+			(Weight * 0.0013d) + (VehicleType.TaxCoefficient * Engine.TaxCoefficientByEngineType * 30) + 5;
 
 		public override bool Equals(object obj)
 		{
