@@ -23,23 +23,8 @@ namespace AutoParkConsole
 				Color.Black,
 				150));
 
-			var vehilesForQueue = collections.GetVehicles();
-			MyStack<Vehicle> stack = new MyStack<Vehicle>();
-
-			Console.WriteLine("Stack:");
-			for (int i = 0; i < vehilesForQueue.Count; i++)
-			{
-				stack.Push(vehilesForQueue[i]);
-				Console.WriteLine($"Automobile {vehilesForQueue[i].GetModelName()} entering garage");
-			}
-
-			Console.WriteLine("Vehicles leaving the garage:");
-			int stackCount = stack.Count();
-			for (int i = 0; i < stackCount - 1; i++)
-			{
-				Vehicle vehicle = stack.Pop();
-				Console.WriteLine($"Automobile {vehicle.GetModelName()} leaved");
-			}
+			MechanicOrders orders = new MechanicOrders(pathToCSV + "orders.csv");
+			orders.Print();
 		}
 	}
 }
