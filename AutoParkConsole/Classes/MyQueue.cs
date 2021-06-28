@@ -5,18 +5,21 @@
 		T[] _Queue;
 		int _Capacity;
 		int _LastIndex;
+		int _FirstIndex;
 
 		public MyQueue()
 		{
 			_Capacity = 5;
 			_Queue = new T[_Capacity];
 			_LastIndex = 0;
+			_FirstIndex = 0;
 		}
 		public MyQueue(int capacity)
 		{
 			_Queue = new T[capacity];
 			_Capacity = capacity;
 			_LastIndex = 0;
+			_FirstIndex = 0;
 		}
 
 		public MyQueue(T[] queue)
@@ -24,6 +27,7 @@
 			_Queue = queue;
 			_Capacity = _Queue.Length;
 			_LastIndex = _Queue.Length - 1;
+			_FirstIndex = 0;
 		}
 
 		void Resize()
@@ -53,23 +57,27 @@
 
 		public T Dequeue()
 		{
-			T elementToDequeue = _Queue[0];
-			for (int counter = 1; counter <= _LastIndex; counter++)
+			if(_FirstIndex!=_LastIndex)
 			{
-				_Queue[counter - 1] = _Queue[counter];
+				T elementToDequeue = _Queue[_FirstIndex];
+				_FirstIndex++;
+
+				return elementToDequeue;
 			}
 
-			return elementToDequeue;
+			return default(T);
 		}
 
 		public void Clear()
 		{
 			_Queue = new T[_Capacity];
+			_LastIndex = 0;
+			_FirstIndex = 0;
 		}
 
 		public bool Contains(T element)
 		{
-			for (int counter = 0; counter < _Queue.Length; counter++)
+			for (int counter = _FirstIndex; counter < _LastIndex; counter++)
 			{
 				if (_Queue[counter].Equals(element))
 				{
@@ -82,7 +90,7 @@
 
 		public int Count()
 		{
-			return _LastIndex;
+			return _LastIndex - _FirstIndex;
 		}
 	}
 }

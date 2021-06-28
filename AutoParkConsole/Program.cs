@@ -27,14 +27,15 @@ namespace AutoParkConsole
 			MyQueue<Vehicle> queue = new MyQueue<Vehicle>();
 
 			Console.WriteLine("Queue:");
-			for(int i=0;i<vehilesForQueue.Count;i++)
+			for (int i = 0; i < vehilesForQueue.Count; i++)
 			{
 				queue.Enqueue(vehilesForQueue[i]);
 				Console.WriteLine($"Automobile {vehilesForQueue[i].GetModelName()} in queue");
 			}
 
 			Console.WriteLine("Washed vehicles:");
-			for(int i=0;i<queue.Count();i++)
+			int queueCount = queue.Count();
+			for (int i = 0; i < queueCount; i++)
 			{
 				Vehicle vehicle = queue.Dequeue();
 				Console.WriteLine($"Automobile {vehicle.GetModelName()} washed");
