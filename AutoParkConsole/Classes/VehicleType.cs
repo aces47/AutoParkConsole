@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoParkConsole.Classes
 {
-	class VehicleType
+	private class VehicleType
 	{
 		private string _typeName;
 		private double _taxCoefficient;
