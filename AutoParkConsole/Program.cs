@@ -25,7 +25,7 @@ namespace AutoParkConsole
 			Console.WriteLine("Array of vehicles after sorting:");
 			VehicleHelper.PrintVehicleArray(vehicles);
 
-			var minAndMaxVehicles = VehicleHelper.GetFindMaxAndMinMileageVehicles(vehicles);
+			var minAndMaxVehicles = VehicleHelper.GetMaxAndMinMileageVehicles(vehicles);
 
 			Console.WriteLine($"Minimal mileage vehicle is:{minAndMaxVehicles.min}\n" +
 				$"Maximal mileage vehicle is:{minAndMaxVehicles.max}");

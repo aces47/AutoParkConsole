@@ -4,15 +4,14 @@ namespace AutoParkConsole.Classes
 {
 	internal class Vehicle : IComparable<Vehicle>
 	{
-
-		private readonly VehicleType _vehicleType;
-		private readonly string _modelName;
-		private string _gosNumber;
-		private int _weight;
-		private readonly int _manufactureYear;
-		private int _mileage;
-		private Color _color;
-		private int _tankCapacity;
+		public VehicleType VehicleType { get; }
+		public string ModelName { get; }
+		public string GosNumber { get; set; }
+		public int Weight { get; set; }
+		public int ManufactureYear { get; }
+		public int Mileage { get; set; }
+		public Color Color { get; set; }
+		public int TankCapacity { get; set; }
 
 		public Vehicle()
 		{
@@ -29,39 +28,25 @@ namespace AutoParkConsole.Classes
 			Color color,
 			int tankCapacity = 0)
 		{
-			_vehicleType = type;
-			_modelName = model;
-			_gosNumber = gosNumber;
-			_weight = weight;
-			_manufactureYear = manufactureYear;
-			_mileage = mileage;
-			_color = color;
-			_tankCapacity = tankCapacity;
+			VehicleType = type;
+			ModelName = model;
+			GosNumber = gosNumber;
+			Weight = weight;
+			ManufactureYear = manufactureYear;
+			Mileage = mileage;
+			Color = color;
+			TankCapacity = tankCapacity;
 		}
 
-		public string GetVehicleType() => $"{_vehicleType}";
-		public string GetModelName() => $"{_modelName}";
-		public void SetGosNumber(string gosNumber) => _gosNumber = gosNumber;
-		public string GetGosNumber() => $"{_gosNumber}";
-		public void SetWeight(int weight) => _weight = weight;
-		public int GetWeight() => _weight;
-		public int GetManufactureYear() => _manufactureYear;
-		public void SetMileage(int mileage) => _mileage = mileage;
-		public int GetMileage() => _mileage;
-		public void SetColor(Color color) => _color = color;
-		public Color GetColor() => _color;
-		public void SetTankCapacity(int tankCapacity) => _tankCapacity = tankCapacity;
-		public int GetTankCapacity() => _tankCapacity;
-
-		public double GetCalcTaxPerMonth() => (_weight * 0.0013d) + (_vehicleType.GetTaxCoefficient() * 30) + 5;
+		public double GetCalcTaxPerMonth() => (Weight * 0.0013d) + (VehicleType.TaxCoefficient * 30) + 5;
 
 		public override string ToString() =>
-			$"{_vehicleType},{_modelName},{_gosNumber},{_weight},{_manufactureYear},{_mileage},{_color},{_tankCapacity}";
+			$"{VehicleType},{ModelName},{GosNumber},{Weight},{ManufactureYear},{Mileage},{Color},{TankCapacity}";
 
 		public int CompareTo(Vehicle other)
 		{
-			double thisTaxCoefficient = _vehicleType.GetTaxCoefficient();
-			double otherTaxCoefficient = other._vehicleType.GetTaxCoefficient();
+			double thisTaxCoefficient = VehicleType.TaxCoefficient;
+			double otherTaxCoefficient = other.VehicleType.TaxCoefficient;
 
 			return thisTaxCoefficient.CompareTo(otherTaxCoefficient);
 		}
