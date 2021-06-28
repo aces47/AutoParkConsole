@@ -11,6 +11,7 @@ namespace AutoParkConsole.Classes
 		public string TypeName { get; set; }
 		public double TaxCoefficient { get; set; }
 
+
 		public VehicleType()
 		{
 
@@ -28,5 +29,6 @@ namespace AutoParkConsole.Classes
 		}
 
 		public override string ToString() => $"{TypeName},{TaxCoefficient}";
+
 	}
 }
