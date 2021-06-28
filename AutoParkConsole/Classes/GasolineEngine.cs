@@ -15,7 +15,7 @@ namespace AutoParkConsole.Classes
 		}
 
 		public override string ToString() =>
-			$"{GetEngineTypeName()},{GetTaxCoefficientByEngineType()},{EngineCapacity},{FuelConsumptionPer100}";
+			$"{EngineTypeName},{TaxCoefficientByEngineType},{EngineCapacity},{FuelConsumptionPer100}";
 
 	}
 }
