@@ -2,28 +2,17 @@
 
 namespace AutoParkConsole.Classes
 {
-	public enum Color
-	{
-		Black = 1,
-		White,
-		Red,
-		Gray,
-		Yellow,
-		Blue,
-		Green
-	}
-
-	public class Vehicle : IComparable<Vehicle>
+	internal class Vehicle : IComparable<Vehicle>
 	{
 
-		readonly VehicleType _VehicleType;
-		readonly string _ModelName;
-		string _GosNumber;
-		int _Weight;
-		readonly int _ManufactureYear;
-		int _Mileage;
-		Color _Color;
-		int _TankCapacity;
+		private readonly VehicleType _vehicleType;
+		private readonly string _modelName;
+		private string _gosNumber;
+		private int _weight;
+		private readonly int _manufactureYear;
+		private int _mileage;
+		private Color _color;
+		private int _tankCapacity;
 
 		public Vehicle()
 		{
@@ -40,39 +29,39 @@ namespace AutoParkConsole.Classes
 			Color color,
 			int tankCapacity = 0)
 		{
-			_VehicleType = type;
-			_ModelName = model;
-			_GosNumber = gosNumber;
-			_Weight = weight;
-			_ManufactureYear = manufactureYear;
-			_Mileage = mileage;
-			_Color = color;
-			_TankCapacity = tankCapacity;
+			_vehicleType = type;
+			_modelName = model;
+			_gosNumber = gosNumber;
+			_weight = weight;
+			_manufactureYear = manufactureYear;
+			_mileage = mileage;
+			_color = color;
+			_tankCapacity = tankCapacity;
 		}
 
-		public string GetVehicleType() => $"{_VehicleType}";
-		public string GetModelName() => $"{_ModelName}";
-		public void SetGosNumber(string gosNumber) => _GosNumber = gosNumber;
-		public string GetGosNumber() => $"{_GosNumber}";
-		public void SetWeight(int weight) => _Weight = weight;
-		public int GetWeight() => _Weight;
-		public int GetManufactureYear() => _ManufactureYear;
-		public void SetMileage(int mileage) => _Mileage = mileage;
-		public int GetMileage() => _Mileage;
-		public void SetColor(Color color) => _Color = color;
-		public Color GetColor() => _Color;
-		public void SetTankCapacity(int tankCapacity) => _TankCapacity = tankCapacity;
-		public int GetTankCapacity() => _TankCapacity;
+		public string GetVehicleType() => $"{_vehicleType}";
+		public string GetModelName() => $"{_modelName}";
+		public void SetGosNumber(string gosNumber) => _gosNumber = gosNumber;
+		public string GetGosNumber() => $"{_gosNumber}";
+		public void SetWeight(int weight) => _weight = weight;
+		public int GetWeight() => _weight;
+		public int GetManufactureYear() => _manufactureYear;
+		public void SetMileage(int mileage) => _mileage = mileage;
+		public int GetMileage() => _mileage;
+		public void SetColor(Color color) => _color = color;
+		public Color GetColor() => _color;
+		public void SetTankCapacity(int tankCapacity) => _tankCapacity = tankCapacity;
+		public int GetTankCapacity() => _tankCapacity;
 
-		public double GetCalcTaxPerMonth() => (_Weight * 0.0013d) + (_VehicleType.GetTaxCoefficient() * 30) + 5;
+		public double GetCalcTaxPerMonth() => (_weight * 0.0013d) + (_vehicleType.GetTaxCoefficient() * 30) + 5;
 
 		public override string ToString() =>
-			$"{_VehicleType},{_ModelName},{_GosNumber},{_Weight},{_ManufactureYear},{_Mileage},{_Color},{_TankCapacity}";
+			$"{_vehicleType},{_modelName},{_gosNumber},{_weight},{_manufactureYear},{_mileage},{_color},{_tankCapacity}";
 
 		public int CompareTo(Vehicle other)
 		{
-			double thisTaxCoefficient = _VehicleType.GetTaxCoefficient();
-			double otherTaxCoefficient = other._VehicleType.GetTaxCoefficient();
+			double thisTaxCoefficient = _vehicleType.GetTaxCoefficient();
+			double otherTaxCoefficient = other._vehicleType.GetTaxCoefficient();
 			if (thisTaxCoefficient < otherTaxCoefficient)
 			{
 				return -1;

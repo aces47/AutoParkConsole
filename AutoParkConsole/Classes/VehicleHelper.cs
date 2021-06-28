@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoParkConsole.Classes
 {
-	public static class VehicleHelper
+	internal static class VehicleHelper
 	{
 		public static void PrintVehicleArray(Vehicle[] vehicles)
 		{
@@ -16,18 +16,18 @@ namespace AutoParkConsole.Classes
 			}
 		}
 
-		public static (Vehicle min,Vehicle max) GetFindMaxAndMinMileageVehicles(Vehicle[] vehicles)
+		public static (Vehicle min, Vehicle max) GetFindMaxAndMinMileageVehicles(Vehicle[] vehicles)
 		{
 			Vehicle max = vehicles[0];
 			Vehicle min = vehicles[0];
 
-			for(int counter=1; counter<vehicles.Length;counter++)
+			for (int counter = 1; counter < vehicles.Length; counter++)
 			{
-				if(vehicles[counter].GetMileage()>max.GetMileage())
+				if (vehicles[counter].GetMileage() > max.GetMileage())
 				{
 					max = vehicles[counter];
 				}
-				else if(vehicles[counter].GetMileage()<min.GetMileage())
+				else if (vehicles[counter].GetMileage() < min.GetMileage())
 				{
 					min = vehicles[counter];
 				}
