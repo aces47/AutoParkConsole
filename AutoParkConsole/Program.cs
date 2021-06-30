@@ -14,7 +14,7 @@ namespace AutoParkConsole
 			collections.Insert(8,
 				new(8,
 				new ElectricalEngine(25),
-				collections.GetVehicleTypes()[1],
+				collections.VehicleTypes[1],
 				"Tesla Model S",
 				null,
 				2025,
@@ -23,14 +23,14 @@ namespace AutoParkConsole
 				Color.Black,
 				150));
 
-			var vehilesForQueue = collections.GetVehicles();
+			var vehilesForQueue = collections.Vehicles;
 			MyQueue<Vehicle> queue = new MyQueue<Vehicle>();
 
 			Console.WriteLine("Queue:");
 			for (int i = 0; i < vehilesForQueue.Count; i++)
 			{
 				queue.Enqueue(vehilesForQueue[i]);
-				Console.WriteLine($"Automobile {vehilesForQueue[i].GetModelName()} in queue");
+				Console.WriteLine($"Automobile {vehilesForQueue[i].ModelName} in queue");
 			}
 
 			Console.WriteLine("Washed vehicles:");
@@ -38,7 +38,7 @@ namespace AutoParkConsole
 			for (int i = 0; i < queueCount; i++)
 			{
 				Vehicle vehicle = queue.Dequeue();
-				Console.WriteLine($"Automobile {vehicle.GetModelName()} washed");
+				Console.WriteLine($"Automobile {vehicle.ModelName} washed");
 			}
 		}
 	}

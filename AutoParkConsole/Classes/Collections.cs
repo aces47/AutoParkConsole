@@ -5,18 +5,15 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace AutoParkConsole.Classes
 {
-	class Collections
+	internal class Collections
 	{
-		List<VehicleType> _VehicleTypes;
-		List<Vehicle> _Vehicles;
-
-		public List<VehicleType> GetVehicleTypes() => _VehicleTypes;
-		public List<Vehicle> GetVehicles() => _Vehicles;
+		public List<VehicleType> VehicleTypes { get; set; }
+		public List<Vehicle> Vehicles { get; set; }
 
 		public Collections(string types, string vehicles, string rents)
 		{
-			_VehicleTypes = LoadVehicleTypes(types);
-			_Vehicles = LoadVehicle(vehicles);
+			VehicleTypes = LoadVehicleTypes(types);
+			Vehicles = LoadVehicle(vehicles);
 			LoadRents(rents);
 		}
 
@@ -76,20 +73,20 @@ namespace AutoParkConsole.Classes
 
 			return result;
 		}
-		Vehicle CreateVehicle(string[] rows)
+		Vehicle CreateVehicle(string[] csvData)
 		{
-			int vehicleId = Convert.ToInt32(rows[0]);
+			int vehicleId = Convert.ToInt32(csvData[0]);
 			AbstractEngine vehicleEngine = null;
 			VehicleType vehicleType = null;
-			string vehicleModelName = rows[2];
-			string vehicleGosNumber = rows[3];
-			int vehicleWeight = Convert.ToInt32(rows[4]);
-			int vehicleManufactureYear = Convert.ToInt32(rows[5]);
-			int vehicleMileage = Convert.ToInt32(rows[6]);
+			string vehicleModelName = csvData[2];
+			string vehicleGosNumber = csvData[3];
+			int vehicleWeight = Convert.ToInt32(csvData[4]);
+			int vehicleManufactureYear = Convert.ToInt32(csvData[5]);
+			int vehicleMileage = Convert.ToInt32(csvData[6]);
 			Color vehicleColor = Color.Black;
-			double vehicleTankCapacity = Convert.ToDouble(rows[^1]);
+			double vehicleTankCapacity = Convert.ToDouble(csvData[^1]);
 
-			switch (rows[7])
+			switch (csvData[7])
 			{
 				case "Black":
 					vehicleColor = Color.Black;
@@ -114,22 +111,22 @@ namespace AutoParkConsole.Classes
 					break;
 			}
 
-			switch (rows[8])
+			switch (csvData[8])
 			{
 				case "Electrical":
-					vehicleEngine = new ElectricalEngine(Convert.ToDouble(rows[10]));
+					vehicleEngine = new ElectricalEngine(Convert.ToDouble(csvData[10]));
 					break;
 				case "Gasoline":
-					vehicleEngine = new GasolineEngine(Convert.ToDouble(rows[9]), Convert.ToDouble(rows[10]));
+					vehicleEngine = new GasolineEngine(Convert.ToDouble(csvData[9]), Convert.ToDouble(csvData[10]));
 					break;
 				case "Diesel":
-					vehicleEngine = new DieselEngine(Convert.ToDouble(rows[9]), Convert.ToDouble(rows[10]));
+					vehicleEngine = new DieselEngine(Convert.ToDouble(csvData[9]), Convert.ToDouble(csvData[10]));
 					break;
 			}
 
-			foreach (VehicleType type in _VehicleTypes)
+			foreach (VehicleType type in VehicleTypes)
 			{
-				if (type.GetTypeId() == Convert.ToInt32(rows[1]))
+				if (type.Id == Convert.ToInt32(csvData[1]))
 				{
 					vehicleType = type;
 					break;
@@ -162,19 +159,19 @@ namespace AutoParkConsole.Classes
 					reader.HasFieldsEnclosedInQuotes = true;
 					while (!reader.EndOfData)
 					{
-						string[] rows = reader.ReadFields();
+						string[] fields = reader.ReadFields();
 
-						int vehicleId = Convert.ToInt32(rows[0]);
-						DateTime rentDate = Convert.ToDateTime(rows[1]);
-						decimal rentCost = Convert.ToDecimal(rows[2]);
+						int vehicleId = Convert.ToInt32(fields[0]);
+						DateTime rentDate = Convert.ToDateTime(fields[1]);
+						decimal rentCost = Convert.ToDecimal(fields[2]);
 
-						foreach (Vehicle vehicle in _Vehicles)
+						foreach (Vehicle vehicle in Vehicles)
 						{
-							if (vehicle.GetId() == vehicleId)
+							if (vehicle.Id == vehicleId)
 							{
-								List<Rent> rentList = vehicle.GetVehicleRentsList() ?? new List<Rent>();
+								List<Rent> rentList = vehicle.Rents ?? new List<Rent>();
 								rentList.Add(new Rent(rentDate, rentCost));
-								vehicle.SetVehicleRentsList(rentList);
+								vehicle.Rents = rentList;
 							}
 						}
 					}
@@ -192,31 +189,31 @@ namespace AutoParkConsole.Classes
 		}
 		public void Insert(int index, Vehicle vehicle)
 		{
-			if (index < 0 || index > _Vehicles.Count - 1)
+			if (index < 0 || index > Vehicles.Count - 1)
 			{
-				_Vehicles.Add(vehicle);
+				Vehicles.Add(vehicle);
 			}
 			else
 			{
-				_Vehicles.Insert(index, vehicle);
+				Vehicles.Insert(index, vehicle);
 			}
 		}
 		public int Delete(int index)
 		{
-			if (index < 0 || index > _Vehicles.Count - 1)
+			if (index < 0 || index > Vehicles.Count - 1)
 			{
 				return -1;
 			}
 			else
 			{
-				_Vehicles.RemoveAt(index);
+				Vehicles.RemoveAt(index);
 				return index;
 			}
 		}
 		public decimal SumTotalProfit()
 		{
 			decimal sumTotalProfit = 0m;
-			foreach (Vehicle vehicle in _Vehicles)
+			foreach (Vehicle vehicle in Vehicles)
 			{
 				sumTotalProfit += vehicle.GetTotalProfit();
 			}
@@ -227,16 +224,16 @@ namespace AutoParkConsole.Classes
 		{
 			Console.WriteLine($"{"ID",-5}{"Type",-10}{"Model name",-25}{"Number",-15}{"Weight(kg)",-15}" +
 				$"{"Year",-10}{"Mileage",-10}{"Color",-10}{"Income",-10}{"Tax",-10}{"Profit",-10}");
-			foreach (Vehicle vehicle in _Vehicles)
+			foreach (Vehicle vehicle in Vehicles)
 			{
-				Console.WriteLine($"{vehicle.GetId(),-5}" +
-					$"{vehicle.GetVehicleType().GetTypeName(),-10}" +
-					$"{vehicle.GetModelName(),-25}" +
-					$"{vehicle.GetGosNumber(),-15}" +
-					$"{vehicle.GetWeight(),-15}" +
-					$"{vehicle.GetManufactureYear(),-10}" +
-					$"{vehicle.GetMileage(),-10}" +
-					$"{vehicle.GetColor(),-10}" +
+				Console.WriteLine($"{vehicle.Id,-5}" +
+					$"{vehicle.VehicleType.TypeName,-10}" +
+					$"{vehicle.ModelName,-25}" +
+					$"{vehicle.GosNumber,-15}" +
+					$"{vehicle.Weight,-15}" +
+					$"{vehicle.ManufactureYear,-10}" +
+					$"{vehicle.Mileage,-10}" +
+					$"{vehicle.Color,-10}" +
 					$"{vehicle.GetTotalVehicleIncome(),-10:0.00}" +
 					$"{vehicle.GetCalcTaxPerMonth(),-10:0.00}" +
 					$"{vehicle.GetTotalProfit(),-10:0.00}");
@@ -245,7 +242,7 @@ namespace AutoParkConsole.Classes
 		}
 		public void Sort()
 		{
-			_Vehicles.Sort(new VehicleComparer());
+			Vehicles.Sort(new VehicleComparer());
 		}
 	}
 }
