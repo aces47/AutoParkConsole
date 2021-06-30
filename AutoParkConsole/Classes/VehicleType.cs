@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace AutoParkConsole.Classes
 {
-	public class VehicleType
+	internal class VehicleType
 	{
-		int _Id;
-		string _TypeName;
-		double _TaxCoefficient;
+		public int Id { get; }
+		public string TypeName { get; set; }
+		public double TaxCoefficient { get; set; }
 
 		public VehicleType()
 		{
@@ -19,22 +19,16 @@ namespace AutoParkConsole.Classes
 
 		public VehicleType(int id, string name, double taxCoefficient = 1d)
 		{
-			_TypeName = name;
-			_TaxCoefficient = taxCoefficient;
-			_Id = id;
+			TypeName = name;
+			TaxCoefficient = taxCoefficient;
+			Id = id;
 		}
-
-		public int GetTypeId() => _Id;
-		public string GetTypeName() => _TypeName;
-		public void SetTypeName(string name) => _TypeName = name;
-		public double GetTaxCoefficient() => _TaxCoefficient;
-		public void SetTaxCoefficient(double taxCoefficient) => _TaxCoefficient = taxCoefficient;
 
 		public void Display()
 		{
-			Console.WriteLine($"TypeName = {_TypeName}\nTaxCoeffiient = {_TaxCoefficient}");
+			Console.WriteLine($"TypeName = {TypeName}\nTaxCoeffiient = {TaxCoefficient}");
 		}
 
-		public override string ToString() => $"{_TypeName},{_TaxCoefficient}";
+		public override string ToString() => $"{TypeName},{TaxCoefficient}";
 	}
 }
