@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace AutoParkConsole.Classes
 {
-	class VehicleComparer : IComparer<Vehicle>
+	internal class VehicleComparer : IComparer<Vehicle>
 	{
 		public int Compare(Vehicle x, Vehicle y)
 		{
-			string xModelName = x.GetModelName();
-			string yModelName = y.GetModelName();
+			string xModelName = x.ModelName;
+			string yModelName = y.ModelName;
 
 			return xModelName.CompareTo(yModelName);
 		}

@@ -14,7 +14,7 @@ namespace AutoParkConsole
 			collections.Insert(8,
 				new(8,
 				new ElectricalEngine(25),
-				collections.GetVehicleTypes()[1],
+				collections.VehicleTypes[1],
 				"Tesla Model S",
 				null,
 				2025,

@@ -8,19 +8,16 @@ namespace AutoParkConsole.Classes
 {
 	internal class ElectricalEngine : AbstractEngine
 	{
-		double _ElectricityConsumption;
+		public double ElectricityConsumption { get; set; }
 
-		public double GetElectricityConsumption() => _ElectricityConsumption;
-		public void SetElectricityConsumption(double electricityConsumption) => _ElectricityConsumption = electricityConsumption;
-
-		public ElectricalEngine(double electricityConsumption) : base("Electrical",0.1)
+		public ElectricalEngine(double electricityConsumption) : base("Electrical", 0.1d)
 		{
-			_ElectricityConsumption = electricityConsumption;
+			ElectricityConsumption = electricityConsumption;
 		}
 
-		public override double GetMaxKilometers(double batterySize) => batterySize / _ElectricityConsumption;
+		public override double GetMaxKilometers(double batterySize) => batterySize / ElectricityConsumption;
 
-		public override string ToString() => 
-			$"{GetEngineTypeName()},{GetTaxCoefficientByEngineType()},{_ElectricityConsumption}";
+		public override string ToString() =>
+			$"{EngineTypeName},{TaxCoefficientByEngineType},{ElectricityConsumption}";
 	}
 }

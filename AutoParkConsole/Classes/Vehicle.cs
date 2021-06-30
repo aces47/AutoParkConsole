@@ -3,30 +3,19 @@ using System.Collections.Generic;
 
 namespace AutoParkConsole.Classes
 {
-	public enum Color
+	internal class Vehicle : IComparable<Vehicle>
 	{
-		Black = 1,
-		White,
-		Red,
-		Gray,
-		Yellow,
-		Blue,
-		Green
-	}
-
-	public class Vehicle : IComparable<Vehicle>
-	{
-		int _Id = 0;
-		readonly AbstractEngine _AbstractEngine;
-		readonly VehicleType _VehicleType;
-		readonly string _ModelName;
-		string _GosNumber;
-		int _Weight;
-		readonly int _ManufactureYear;
-		int _Mileage;
-		Color _Color;
-		double _TankCapacity;
-		List<Rent> _Rents;
+		public int Id { get; }
+		public AbstractEngine AbstractEngine { get; }
+		public VehicleType VehicleType { get; }
+		public string ModelName { get; }
+		public string GosNumber { get; set; }
+		public int Weight { get; set; }
+		public int ManufactureYear { get; }
+		public int Mileage { get; set; }
+		public Color Color { get; set; }
+		public double TankCapacity { get; set; }
+		public List<Rent> Rents { get; set; }
 
 		public Vehicle()
 		{
@@ -45,43 +34,26 @@ namespace AutoParkConsole.Classes
 			Color color,
 			double tankCapacity = 0d)
 		{
-			_AbstractEngine = engine;
-			_VehicleType = type;
-			_ModelName = model;
-			_GosNumber = gosNumber;
-			_Weight = weight;
-			_ManufactureYear = manufactureYear;
-			_Mileage = mileage;
-			_Color = color;
-			_TankCapacity = tankCapacity;
-			_Id = id;
+			AbstractEngine = engine;
+			VehicleType = type;
+			ModelName = model;
+			GosNumber = gosNumber;
+			Weight = weight;
+			ManufactureYear = manufactureYear;
+			Mileage = mileage;
+			Color = color;
+			TankCapacity = tankCapacity;
+			Id = id;
 		}
 
-		public int GetId() => _Id;
-		public List<Rent> GetVehicleRentsList() => _Rents;
-		public void SetVehicleRentsList(List<Rent> rents) => _Rents = rents;
-		public AbstractEngine GetEngineTypeOfVehicle() => _AbstractEngine;
-		public VehicleType GetVehicleType() => _VehicleType;
-		public string GetModelName() => $"{_ModelName}";
-		public void SetGosNumber(string gosNumber) => _GosNumber = gosNumber;
-		public string GetGosNumber() => $"{_GosNumber}";
-		public void SetWeight(int weight) => _Weight = weight;
-		public int GetWeight() => _Weight;
-		public int GetManufactureYear() => _ManufactureYear;
-		public void SetMileage(int mileage) => _Mileage = mileage;
-		public int GetMileage() => _Mileage;
-		public void SetColor(Color color) => _Color = color;
-		public Color GetColor() => _Color;
-		public void SetTankCapacity(double tankCapacity) => _TankCapacity = tankCapacity;
-		public double GetTankCapacity() => _TankCapacity;
 		public decimal GetTotalVehicleIncome()
 		{
-			if(_Rents!=null)
+			if (Rents != null)
 			{
 				decimal totalIncome = 0;
-				foreach (Rent rent in _Rents)
+				foreach (Rent rent in Rents)
 				{
-					totalIncome += rent.GetRentCost();
+					totalIncome += rent.RentCost;
 				}
 
 				return totalIncome;
@@ -92,14 +64,14 @@ namespace AutoParkConsole.Classes
 		public decimal GetTotalProfit() => GetTotalVehicleIncome() - (decimal)GetCalcTaxPerMonth();
 
 		public double GetCalcTaxPerMonth() =>
-			(_Weight * 0.0013d) + (_VehicleType.GetTaxCoefficient() * _AbstractEngine.GetTaxCoefficientByEngineType() * 30) + 5;
+			(Weight * 0.0013d) + (VehicleType.TaxCoefficient * AbstractEngine.TaxCoefficientByEngineType * 30) + 5;
 
 		public override bool Equals(object obj)
 		{
 			if (obj is Vehicle)
 			{
 				var other = obj as Vehicle;
-				if (_VehicleType == other._VehicleType && _ModelName.Equals(other._ModelName))
+				if (VehicleType == other.VehicleType && ModelName.Equals(other.ModelName))
 				{
 					return true;
 				}
@@ -108,20 +80,14 @@ namespace AutoParkConsole.Classes
 			return false;
 		}
 		public override string ToString() =>
-			$"{_AbstractEngine},{_VehicleType},{_ModelName},{_GosNumber},{_Weight},{_ManufactureYear},{_Mileage},{_Color},{_TankCapacity}";
+			$"{AbstractEngine},{VehicleType},{ModelName},{GosNumber},{Weight},{ManufactureYear},{Mileage},{Color},{TankCapacity}";
 
 		public int CompareTo(Vehicle other)
 		{
-			double thisTaxCoefficient = _VehicleType.GetTaxCoefficient();
-			double otherTaxCoefficient = other._VehicleType.GetTaxCoefficient();
-			if (thisTaxCoefficient < otherTaxCoefficient)
-			{
-				return -1;
-			}
-			else
-			{
-				return thisTaxCoefficient == otherTaxCoefficient ? 0 : 1;
-			}
+			double thisTaxCoefficient = VehicleType.TaxCoefficient;
+			double otherTaxCoefficient = other.VehicleType.TaxCoefficient;
+
+			return thisTaxCoefficient.CompareTo(otherTaxCoefficient);
 		}
 	}
 }

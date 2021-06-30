@@ -1,77 +1,85 @@
 ﻿namespace AutoParkConsole.Classes
 {
-	class MyQueue<T>
+	internal class MyQueue<T>
 	{
-		T[] _Queue;
-		int _Capacity;
-		int _LastIndex;
+		private T[] _queue;
+		private int _capacity;
+		private int _lastIndex;
+		private int _firstIndex;
 
 		public MyQueue()
 		{
-			_Capacity = 5;
-			_Queue = new T[_Capacity];
-			_LastIndex = 0;
+			_capacity = 5;
+			_queue = new T[_capacity];
+			_lastIndex = 0;
+			_firstIndex = 0;
 		}
 		public MyQueue(int capacity)
 		{
-			_Queue = new T[capacity];
-			_Capacity = capacity;
-			_LastIndex = 0;
+			_queue = new T[capacity];
+			_capacity = capacity;
+			_lastIndex = 0;
+			_firstIndex = 0;
 		}
 
 		public MyQueue(T[] queue)
 		{
-			_Queue = queue;
-			_Capacity = _Queue.Length;
-			_LastIndex = _Queue.Length - 1;
+			_queue = queue;
+			_capacity = _queue.Length;
+			_lastIndex = _queue.Length - 1;
+			_firstIndex = 0;
 		}
 
 		void Resize()
 		{
 			T[] newQueue = null;
 
-			newQueue = new T[_Capacity * 2];
-			for (int counter = 0; counter < _Queue.Length; counter++)
+			newQueue = new T[_capacity * 2];
+			for (int counter = 0; counter < _queue.Length; counter++)
 			{
-				newQueue[counter] = _Queue[counter];
+				newQueue[counter] = _queue[counter];
 			}
 
-			_Queue = newQueue;
-			_Capacity *= 2;
+			_queue = newQueue;
+			_capacity *= 2;
 		}
 
 		public void Enqueue(T element)
 		{
-			if (_Capacity - 1 == _LastIndex)
+			if (_capacity - 1 == _lastIndex)
 			{
 				Resize();
 			}
 
-			_Queue.SetValue(element, _LastIndex);
-			_LastIndex++;
+			_queue.SetValue(element, _lastIndex);
+			_lastIndex++;
 		}
 
 		public T Dequeue()
 		{
-			T elementToDequeue = _Queue[0];
-			for (int counter = 1; counter <= _LastIndex; counter++)
+			if (_firstIndex != _lastIndex)
 			{
-				_Queue[counter - 1] = _Queue[counter];
-			}
+				T elementToDequeue = _queue[_firstIndex];
+				_firstIndex++;
 
 			return elementToDequeue;
 		}
 
+			return default;
+		}
+
 		public void Clear()
 		{
-			_Queue = new T[_Capacity];
+			_queue = new T[_capacity];
+			_lastIndex = 0;
+			_firstIndex = 0;
 		}
 
 		public bool Contains(T element)
 		{
-			for (int counter = 0; counter < _Queue.Length; counter++)
+			for (int counter = _firstIndex; counter < _lastIndex; counter++)
 			{
-				if (_Queue[counter].Equals(element))
+				if (_queue[counter].Equals(element))
 				{
 					return true;
 				}
@@ -82,7 +90,7 @@
 
 		public int Count()
 		{
-			return _LastIndex;
+			return _lastIndex - _firstIndex;
 		}
 	}
 }
