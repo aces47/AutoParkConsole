@@ -23,14 +23,14 @@ namespace AutoParkConsole
 			VehicleHelper.PrintVehicleArray(vehicles);
 
 			Vehicle maxKilometersVehicle = vehicles[0];
-			double maxKilometersDistance = 
-				maxKilometersVehicle.GetEngineTypeOfVehicle().GetMaxKilometers(vehicles[0].GetTankCapacity());
+			double maxKilometersDistance =
+				maxKilometersVehicle.AbstractEngine.GetMaxKilometers(vehicles[0].TankCapacity);
 
 			for (int counter = 1; counter < vehicles.Length; counter++)
 			{
 				double maxKilometersCurrentVehicleDistance =
-					vehicles[counter].GetEngineTypeOfVehicle().GetMaxKilometers(vehicles[counter].GetTankCapacity());
-				if (maxKilometersDistance< maxKilometersCurrentVehicleDistance)
+					vehicles[counter].AbstractEngine.GetMaxKilometers(vehicles[counter].TankCapacity);
+				if (maxKilometersDistance < maxKilometersCurrentVehicleDistance)
 				{
 					maxKilometersDistance = maxKilometersCurrentVehicleDistance;
 					maxKilometersVehicle = vehicles[counter];
