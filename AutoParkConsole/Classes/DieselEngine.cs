@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace AutoParkConsole.Classes
 {
-	class DieselEngine : AbstractCombustionEngine
+	internal class DieselEngine : AbstractCombustionEngine
 	{
 		public DieselEngine(double engineCapacity, double fuelConsumptionPer100) : base("Diesel", 1.2d)
 		{
-			_EngineCapacity = engineCapacity;
-			_FuelConsumptionPer100 = fuelConsumptionPer100;
+			EngineCapacity = engineCapacity;
+			FuelConsumptionPer100 = fuelConsumptionPer100;
 		}
 
 		public override string ToString() =>
-			$"{GetEngineTypeName()},{GetTaxCoefficientByEngineType()},{GetEngineCapacity()},{GetFuelConsumptionPer100()}";
+			$"{EngineTypeName},{TaxCoefficientByEngineType},{EngineCapacity},{FuelConsumptionPer100}";
 	}
 }
