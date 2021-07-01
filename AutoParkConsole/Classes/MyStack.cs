@@ -8,62 +8,62 @@ namespace AutoParkConsole.Classes
 {
 	class MyStack<T>
 	{
-		T[] _Stack;
-		int _Capacity;
-		int _LastIndex;
+		T[] _stack;
+		int _capacity;
+		int _lastIndex;
 
 		public MyStack()
 		{
-			_Capacity = 5;
-			_Stack = new T[_Capacity];
-			_LastIndex = 0;
+			_capacity = 5;
+			_stack = new T[_capacity];
+			_lastIndex = 0;
 		}
 
 		public MyStack(int capacity)
 		{
-			_Capacity = capacity;
-			_Stack = new T[_Capacity];
-			_LastIndex = 0;
+			_capacity = capacity;
+			_stack = new T[_capacity];
+			_lastIndex = 0;
 		}
 
 		public MyStack(T[] stack)
 		{
-			_Stack = stack;
-			_Capacity = stack.Length;
-			_LastIndex = _Capacity - 1;
+			_stack = stack;
+			_capacity = stack.Length;
+			_lastIndex = _capacity - 1;
 		}
 
 		void Resize()
 		{
 			T[] newStack = null;
 
-			newStack = new T[_Capacity * 2];
-			for (int counter = 0; counter < _Stack.Length; counter++)
+			newStack = new T[_capacity * 2];
+			for (int counter = 0; counter < _stack.Length; counter++)
 			{
-				newStack[counter] = _Stack[counter];
+				newStack[counter] = _stack[counter];
 			}
 
-			_Stack = newStack;
-			_Capacity *= 2;
+			_stack = newStack;
+			_capacity *= 2;
 
 		}
 		public void Push(T element)
 		{
-			if (_Capacity - 1 == _LastIndex)
+			if (_capacity - 1 == _lastIndex)
 			{
 				Resize();
 			}
-			_Stack.SetValue(element, _LastIndex);
-			_LastIndex++;
+			_stack.SetValue(element, _lastIndex);
+			_lastIndex++;
 		}
 
 		public T Pop()
 		{
-			if(_LastIndex>0)
+			if (_lastIndex > 0)
 			{
-				T elementToPop = _Stack[_LastIndex -1 ];
-				_Stack.SetValue(null, _LastIndex);
-				_LastIndex--;
+				T elementToPop = _stack[_lastIndex - 1];
+				_stack.SetValue(null, _lastIndex);
+				_lastIndex--;
 
 				return elementToPop;
 			}
@@ -73,13 +73,13 @@ namespace AutoParkConsole.Classes
 
 		public void Clear()
 		{
-			_Stack = new T[_Capacity];
-			_LastIndex = 0;
+			_stack = new T[_capacity];
+			_lastIndex = 0;
 		}
 
 		public int Count()
 		{
-			return _LastIndex + 1;
+			return _lastIndex;
 		}
 	}
 }
