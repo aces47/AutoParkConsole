@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace AutoParkConsole.Classes
 {
-	class MechanicOrders
+	internal class MechanicOrders
 	{
-		Dictionary<string, int> _Orders;
+		private Dictionary<string, int> _orders;
 
 		public MechanicOrders(string inFile)
 		{
-			_Orders = new Dictionary<string, int>();
+			_orders = new Dictionary<string, int>();
 			using (StreamReader reader = new StreamReader(inFile))
 			{
-				while(!reader.EndOfStream)
+				while (!reader.EndOfStream)
 				{
-					string[] rows = reader.ReadLine().Split(',');
+					string[] fieldsOfParts = reader.ReadLine().Split(',');
 
-					foreach (string row in rows)
+					foreach (string row in fieldsOfParts)
 					{
-						if(!_Orders.TryAdd(row, 1))
+						if (!_orders.TryAdd(row, 1))
 						{
-							_Orders[row]++;
+							_orders[row]++;
 						}
 					}
 				}
@@ -33,7 +33,7 @@ namespace AutoParkConsole.Classes
 
 		public void Print()
 		{
-			foreach (var item in _Orders)
+			foreach (var item in _orders)
 			{
 				Console.WriteLine($"{item.Key} - {item.Value} шт.");
 			}
