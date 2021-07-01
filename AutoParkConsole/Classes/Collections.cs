@@ -83,33 +83,8 @@ namespace AutoParkConsole.Classes
 			int vehicleWeight = Convert.ToInt32(csvData[4]);
 			int vehicleManufactureYear = Convert.ToInt32(csvData[5]);
 			int vehicleMileage = Convert.ToInt32(csvData[6]);
-			Color vehicleColor = Color.Black;
+			Color vehicleColor = Enum.Parse<Color>(csvData[7]);
 			double vehicleTankCapacity = Convert.ToDouble(csvData[^1]);
-
-			switch (csvData[7])
-			{
-				case "Black":
-					vehicleColor = Color.Black;
-					break;
-				case "White":
-					vehicleColor = Color.White;
-					break;
-				case "Red":
-					vehicleColor = Color.Red;
-					break;
-				case "Gray":
-					vehicleColor = Color.Gray;
-					break;
-				case "Green":
-					vehicleColor = Color.Green;
-					break;
-				case "Yellow":
-					vehicleColor = Color.Yellow;
-					break;
-				case "Blue":
-					vehicleColor = Color.Blue;
-					break;
-			}
 
 			switch (csvData[8])
 			{
