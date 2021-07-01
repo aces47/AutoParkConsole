@@ -8,8 +8,8 @@ namespace AutoParkConsole.Classes
 {
 	internal class VehicleType
 	{
-		public string TypeName;
-		public double TaxCoefficient;
+		public string TypeName { get; set; }
+		public double TaxCoefficient { get; set; }
 
 		public VehicleType()
 		{
