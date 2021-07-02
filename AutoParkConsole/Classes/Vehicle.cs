@@ -17,10 +17,7 @@ namespace AutoParkConsole.Classes
 		public double TankCapacity { get; set; }
 		public List<Rent> Rents { get; set; }
 
-		public Vehicle()
-		{
-
-		}
+		public Vehicle() { }
 
 		public Vehicle(
 			int id,

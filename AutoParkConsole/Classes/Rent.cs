@@ -11,10 +11,7 @@ namespace AutoParkConsole.Classes
 		public DateTime RentDate { get; set; }
 		public decimal RentCost { get; set; }
 
-		public Rent()
-		{
-
-		}
+		public Rent() { }
 
 		public Rent(DateTime rentDate, decimal rentCost)
 		{
