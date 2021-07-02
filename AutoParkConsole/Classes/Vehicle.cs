@@ -4,6 +4,7 @@ namespace AutoParkConsole.Classes
 {
 	internal class Vehicle : IComparable<Vehicle>
 	{
+		public AbstractEngine AbstractEngine { get; }
 		public VehicleType VehicleType { get; }
 		public string ModelName { get; }
 		public string GosNumber { get; set; }
@@ -11,7 +12,7 @@ namespace AutoParkConsole.Classes
 		public int ManufactureYear { get; }
 		public int Mileage { get; set; }
 		public Color Color { get; set; }
-		public int TankCapacity { get; set; }
+		public double TankCapacity { get; set; }
 
 		public Vehicle()
 		{
@@ -19,6 +20,7 @@ namespace AutoParkConsole.Classes
 		}
 
 		public Vehicle(
+			AbstractEngine engine,
 			VehicleType type,
 			string model,
 			string gosNumber,
@@ -28,6 +30,7 @@ namespace AutoParkConsole.Classes
 			Color color,
 			int tankCapacity = 0)
 		{
+			AbstractEngine = engine;
 			VehicleType = type;
 			ModelName = model;
 			GosNumber = gosNumber;
@@ -38,10 +41,24 @@ namespace AutoParkConsole.Classes
 			TankCapacity = tankCapacity;
 		}
 
-		public double GetCalcTaxPerMonth() => (Weight * 0.0013d) + (VehicleType.TaxCoefficient * 30) + 5;
+		public double GetCalcTaxPerMonth() =>
+			(Weight * 0.0013d) + (VehicleType.TaxCoefficient * AbstractEngine.TaxCoefficientByEngineType * 30) + 5;
 
+		public override bool Equals(object obj)
+		{
+			if (obj is Vehicle)
+			{
+				var other = obj as Vehicle;
+				if (VehicleType == other.VehicleType && ModelName.Equals(other.ModelName))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
 		public override string ToString() =>
-			$"{VehicleType},{ModelName},{GosNumber},{Weight},{ManufactureYear},{Mileage},{Color},{TankCapacity}";
+			$"{AbstractEngine},{VehicleType},{ModelName},{GosNumber},{Weight},{ManufactureYear},{Mileage},{Color},{TankCapacity}";
 
 		public int CompareTo(Vehicle other)
 		{
