@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace AutoParkConsole.Classes
 {
@@ -17,13 +16,9 @@ namespace AutoParkConsole.Classes
 		public double TankCapacity { get; set; }
 		public List<Rent> Rents { get; set; }
 
-		public Vehicle()
-		{
-
-		}
+		public Vehicle() { }
 
 		public Vehicle(
-			int id,
 			AbstractEngine engine,
 			VehicleType type,
 			string model,
@@ -32,7 +27,7 @@ namespace AutoParkConsole.Classes
 			int manufactureYear,
 			int mileage,
 			Color color,
-			double tankCapacity = 0d)
+			int tankCapacity = 0)
 		{
 			AbstractEngine = engine;
 			VehicleType = type;
@@ -61,7 +56,6 @@ namespace AutoParkConsole.Classes
 
 			return 0m;
 		}
-		public decimal GetTotalProfit() => GetTotalVehicleIncome() - (decimal)GetCalcTaxPerMonth();
 
 		public double GetCalcTaxPerMonth() =>
 			(Weight * 0.0013d) + (VehicleType.TaxCoefficient * AbstractEngine.TaxCoefficientByEngineType * 30) + 5;
@@ -89,5 +83,6 @@ namespace AutoParkConsole.Classes
 
 			return thisTaxCoefficient.CompareTo(otherTaxCoefficient);
 		}
+
 	}
 }
