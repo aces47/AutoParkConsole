@@ -13,7 +13,7 @@ namespace AutoParkConsole.Classes
 
 		public abstract double GetMaxKilometers(double tankCapacity);
 
-		protected AbstractEngine(string engineTypeName, double taxCoefficientByEngineType = 1d)
+		protected AbstractEngine( string engineTypeName,double taxCoefficientByEngineType = 1d)
 		{
 			EngineTypeName = engineTypeName;
 			TaxCoefficientByEngineType = taxCoefficientByEngineType;
