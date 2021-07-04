@@ -8,7 +8,7 @@ namespace AutoParkConsole.Classes
 {
 	internal class ElectricalEngine : AbstractEngine
 	{
-		public double ElectricityConsumption;
+		public double ElectricityConsumption { get; set; }
 
 		public ElectricalEngine(double electricityConsumption) : base("Electrical", 0.1)
 		{

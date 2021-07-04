@@ -4,6 +4,7 @@ namespace AutoParkConsole.Classes
 {
 	internal class Vehicle : IComparable<Vehicle>
 	{
+		public int Id { get; }
 		public AbstractEngine AbstractEngine { get; }
 		public VehicleType VehicleType { get; }
 		public string ModelName { get; }
@@ -13,11 +14,9 @@ namespace AutoParkConsole.Classes
 		public int Mileage { get; set; }
 		public Color Color { get; set; }
 		public double TankCapacity { get; set; }
+		public List<Rent> Rents { get; set; }
 
-		public Vehicle()
-		{
-
-		}
+		public Vehicle() { }
 
 		public Vehicle(
 			AbstractEngine engine,
@@ -39,6 +38,23 @@ namespace AutoParkConsole.Classes
 			Mileage = mileage;
 			Color = color;
 			TankCapacity = tankCapacity;
+			Id = id;
+		}
+
+		public decimal GetTotalVehicleIncome()
+		{
+			if (Rents != null)
+			{
+				decimal totalIncome = 0;
+				foreach (Rent rent in Rents)
+				{
+					totalIncome += rent.RentCost;
+				}
+
+				return totalIncome;
+			}
+
+			return 0m;
 		}
 
 		public double GetCalcTaxPerMonth() =>

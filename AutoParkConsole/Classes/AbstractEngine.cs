@@ -9,11 +9,11 @@ namespace AutoParkConsole.Classes
 	internal abstract class AbstractEngine
 	{
 		public string EngineTypeName { get; }
-		public double TaxCoefficientByEngineType { get; set; }
+		public double TaxCoefficientByEngineType { get; }
 
 		public abstract double GetMaxKilometers(double tankCapacity);
 
-		public AbstractEngine(string engineTypeName, double taxCoefficientByEngineType = 1d)
+		protected AbstractEngine( string engineTypeName,double taxCoefficientByEngineType = 1d)
 		{
 			EngineTypeName = engineTypeName;
 			TaxCoefficientByEngineType = taxCoefficientByEngineType;
