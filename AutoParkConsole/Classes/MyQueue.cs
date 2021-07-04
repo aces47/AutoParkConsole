@@ -14,6 +14,7 @@
 			_lastIndex = 0;
 			_firstIndex = 0;
 		}
+
 		public MyQueue(int capacity)
 		{
 			_queue = new T[capacity];
