@@ -63,7 +63,10 @@
 				T elementToDequeue = _queue[_firstIndex];
 				_firstIndex++;
 
-			return elementToDequeue;
+        return elementToDequeue;
+			}
+
+			return default;
 		}
 
 			return default;

@@ -61,7 +61,6 @@ namespace AutoParkConsole.Classes
 				throw new FileLoadException(nameof(inFile));
 			}
 
-
 			return result;
 		}
 
@@ -82,7 +81,6 @@ namespace AutoParkConsole.Classes
 			}
 			catch (FileNotFoundException)
 			{
-
 				throw new FileNotFoundException(nameof(inFile));
 			}
 			catch (FileLoadException)

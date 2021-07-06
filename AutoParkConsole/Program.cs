@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using AutoParkConsole.Classes;
 
 namespace AutoParkConsole
@@ -24,6 +23,7 @@ namespace AutoParkConsole
 				150));
 
 			var vehilesForQueue = collections.Vehicles;
+
 			MyStack<Vehicle> stack = new MyStack<Vehicle>();
 
 			Console.WriteLine("Stack:");
