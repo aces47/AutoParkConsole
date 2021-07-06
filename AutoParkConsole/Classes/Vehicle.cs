@@ -45,6 +45,9 @@ namespace AutoParkConsole.Classes
 
         public decimal GetTotalProfit() => GetTotalVehicleIncome() - (decimal)GetCalcTaxPerMonth();
 
+        public double GetCalcTaxPerMonth() =>
+                   (Weight * 0.0013d) + (VehicleType.TaxCoefficient * AbstractEngine.TaxCoefficientByEngineType * 30) + 5;
+
         public decimal GetTotalVehicleIncome()
         {
             if (Rents != null)
@@ -59,13 +62,6 @@ namespace AutoParkConsole.Classes
             }
 
             return 0m;
-        }
-
-			return 0m;
-		}
-		public decimal GetTotalProfit() => GetTotalVehicleIncome() - (decimal)GetCalcTaxPerMonth();
-
-            return false;
         }
 
         public override string ToString() =>
