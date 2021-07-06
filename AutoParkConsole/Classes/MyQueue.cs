@@ -1,96 +1,97 @@
 ﻿namespace AutoParkConsole.Classes
 {
-	internal class MyQueue<T>
-	{
-		private T[] _queue;
-		private int _capacity;
-		private int _lastIndex;
-		private int _firstIndex;
+    internal class MyQueue<T>
+    {
+        private T[] _queue;
+        private int _capacity;
+        private int _lastIndex;
+        private int _firstIndex;
 
-		public MyQueue()
-		{
-			_capacity = 5;
-			_queue = new T[_capacity];
-			_lastIndex = 0;
-			_firstIndex = 0;
-		}
-		public MyQueue(int capacity)
-		{
-			_queue = new T[capacity];
-			_capacity = capacity;
-			_lastIndex = 0;
-			_firstIndex = 0;
-		}
+        public MyQueue()
+        {
+            _capacity = 5;
+            _queue = new T[_capacity];
+            _lastIndex = 0;
+            _firstIndex = 0;
+        }
 
-		public MyQueue(T[] queue)
-		{
-			_queue = queue;
-			_capacity = _queue.Length;
-			_lastIndex = _queue.Length - 1;
-			_firstIndex = 0;
-		}
+        public MyQueue(int capacity)
+        {
+            _queue = new T[capacity];
+            _capacity = capacity;
+            _lastIndex = 0;
+            _firstIndex = 0;
+        }
 
-		void Resize()
-		{
-			T[] newQueue = null;
+        public MyQueue(T[] queue)
+        {
+            _queue = queue;
+            _capacity = _queue.Length;
+            _lastIndex = _queue.Length - 1;
+            _firstIndex = 0;
+        }
 
-			newQueue = new T[_capacity * 2];
-			for (int counter = 0; counter < _queue.Length; counter++)
-			{
-				newQueue[counter] = _queue[counter];
-			}
+        void Resize()
+        {
+            T[] newQueue = null;
 
-			_queue = newQueue;
-			_capacity *= 2;
-		}
+            newQueue = new T[_capacity * 2];
+            for (int counter = 0; counter < _queue.Length; counter++)
+            {
+                newQueue[counter] = _queue[counter];
+            }
 
-		public void Enqueue(T element)
-		{
-			if (_capacity - 1 == _lastIndex)
-			{
-				Resize();
-			}
+            _queue = newQueue;
+            _capacity *= 2;
+        }
 
-			_queue.SetValue(element, _lastIndex);
-			_lastIndex++;
-		}
+        public void Enqueue(T element)
+        {
+            if (_capacity - 1 == _lastIndex)
+            {
+                Resize();
+            }
 
-		public T Dequeue()
-		{
-			if (_firstIndex != _lastIndex)
-			{
-				T elementToDequeue = _queue[_firstIndex];
-				_firstIndex++;
+            _queue.SetValue(element, _lastIndex);
+            _lastIndex++;
+        }
 
-			return elementToDequeue;
-		}
+        public T Dequeue()
+        {
+            if (_firstIndex != _lastIndex)
+            {
+                T elementToDequeue = _queue[_firstIndex];
+                _firstIndex++;
 
-			return default;
-		}
+                return elementToDequeue;
+            }
 
-		public void Clear()
-		{
-			_queue = new T[_capacity];
-			_lastIndex = 0;
-			_firstIndex = 0;
-		}
+            return default;
+        }
 
-		public bool Contains(T element)
-		{
-			for (int counter = _firstIndex; counter < _lastIndex; counter++)
-			{
-				if (_queue[counter].Equals(element))
-				{
-					return true;
-				}
-			}
+        public void Clear()
+        {
+            _queue = new T[_capacity];
+            _lastIndex = 0;
+            _firstIndex = 0;
+        }
 
-			return false;
-		}
+        public bool Contains(T element)
+        {
+            for (int counter = _firstIndex; counter < _lastIndex; counter++)
+            {
+                if (_queue[counter].Equals(element))
+                {
+                    return true;
+                }
+            }
 
-		public int Count()
-		{
-			return _lastIndex - _firstIndex;
-		}
-	}
+            return false;
+        }
+
+        public int Count()
+        {
+            return _lastIndex - _firstIndex;
+        }
+    }
 }
