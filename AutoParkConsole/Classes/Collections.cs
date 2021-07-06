@@ -6,8 +6,8 @@ namespace AutoParkConsole.Classes
 {
 	internal class Collections
 	{
-		public List<VehicleType> VehicleTypes { get; }
-		public List<Vehicle> Vehicles { get; }
+		public List<VehicleType> VehicleTypes { get; set; }
+		public List<Vehicle> Vehicles { get; set; }
 
 		public Collections(string types, string vehicles, string rents)
 		{
@@ -60,7 +60,6 @@ namespace AutoParkConsole.Classes
 			{
 				throw new FileLoadException(nameof(inFile));
 			}
-
 
 			return result;
 		}

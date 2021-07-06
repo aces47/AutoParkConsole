@@ -10,7 +10,7 @@ namespace AutoParkConsole.Classes
 	{
 		public double ElectricityConsumption { get; set; }
 
-		public ElectricalEngine(double electricityConsumption) : base("Electrical", 0.1)
+		public ElectricalEngine(double electricityConsumption) : base("Electrical", 0.1d)
 		{
 			ElectricityConsumption = electricityConsumption;
 		}

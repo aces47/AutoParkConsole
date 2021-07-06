@@ -10,7 +10,6 @@ namespace AutoParkConsole
 			const string pathToCSV = "D:\\GitHub\\AutoParkConsole\\AutoParkConsole\\";
 			Collections collections =
 				new Collections(pathToCSV + "types.csv", pathToCSV + "vehicles.csv", pathToCSV + "rents.csv");
-			collections.Print();
 			collections.Insert(8,
 				new(8,
 				new ElectricalEngine(25),
@@ -22,12 +21,24 @@ namespace AutoParkConsole
 				100,
 				Color.Black,
 				150));
-			collections.Delete(1);
-			collections.Delete(4);
-			collections.Print();
-			collections.Sort();
-			collections.Print();
 
+			var vehilesForQueue = collections.Vehicles;
+			MyQueue<Vehicle> queue = new MyQueue<Vehicle>();
+
+			Console.WriteLine("Queue:");
+			for (int i = 0; i < vehilesForQueue.Count; i++)
+			{
+				queue.Enqueue(vehilesForQueue[i]);
+				Console.WriteLine($"Automobile {vehilesForQueue[i].ModelName} in queue");
+			}
+
+			Console.WriteLine("Washed vehicles:");
+			int queueCount = queue.Count();
+			for (int i = 0; i < queueCount; i++)
+			{
+				Vehicle vehicle = queue.Dequeue();
+				Console.WriteLine($"Automobile {vehicle.ModelName} washed");
+			}
 		}
 	}
 }
