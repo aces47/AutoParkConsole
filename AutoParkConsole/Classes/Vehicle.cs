@@ -3,19 +3,19 @@ using System.Collections.Generic;
 
 namespace AutoParkConsole.Classes
 {
-	internal class Vehicle : IComparable<Vehicle>
-	{
-		public int Id { get; }
-		public AbstractEngine AbstractEngine { get; }
-		public VehicleType VehicleType { get; }
-		public string ModelName { get; }
-		public string GosNumber { get; set; }
-		public int Weight { get; set; }
-		public int ManufactureYear { get; }
-		public int Mileage { get; set; }
-		public Color Color { get; set; }
-		public double TankCapacity { get; set; }
-		public List<Rent> Rents { get; set; }
+    internal class Vehicle : IComparable<Vehicle>
+    {
+        public int Id { get; }
+        public AbstractEngine AbstractEngine { get; }
+        public VehicleType VehicleType { get; }
+        public string ModelName { get; }
+        public string GosNumber { get; set; }
+        public int Weight { get; set; }
+        public int ManufactureYear { get; }
+        public int Mileage { get; set; }
+        public Color Color { get; set; }
+        public double TankCapacity { get; set; }
+        public List<Rent> Rents { get; set; }
 
         public Vehicle() { }
 
@@ -45,9 +45,6 @@ namespace AutoParkConsole.Classes
 
         public decimal GetTotalProfit() => GetTotalVehicleIncome() - (decimal)GetCalcTaxPerMonth();
 
-        public double GetCalcTaxPerMonth() =>
-                   (Weight * 0.0013d) + (VehicleType.TaxCoefficient * AbstractEngine.TaxCoefficientByEngineType * 30) + 5;
-
         public decimal GetTotalVehicleIncome()
         {
             if (Rents != null)
@@ -64,6 +61,23 @@ namespace AutoParkConsole.Classes
             return 0m;
         }
 
+        public double GetCalcTaxPerMonth() =>
+            (Weight * 0.0013d) + (VehicleType.TaxCoefficient * AbstractEngine.TaxCoefficientByEngineType * 30) + 5;
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Vehicle)
+            {
+                var other = obj as Vehicle;
+                if (VehicleType == other.VehicleType && ModelName.Equals(other.ModelName))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public override string ToString() =>
             $"{AbstractEngine},{VehicleType},{ModelName},{GosNumber},{Weight},{ManufactureYear},{Mileage},{Color},{TankCapacity}";
 
@@ -71,7 +85,7 @@ namespace AutoParkConsole.Classes
         {
             double thisTaxCoefficient = VehicleType.TaxCoefficient;
             double otherTaxCoefficient = other.VehicleType.TaxCoefficient;
-
+            
             return thisTaxCoefficient.CompareTo(otherTaxCoefficient);
         }
     }

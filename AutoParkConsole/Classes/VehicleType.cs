@@ -12,10 +12,7 @@ namespace AutoParkConsole.Classes
 		public string TypeName { get; set; }
 		public double TaxCoefficient { get; set; }
 
-		public VehicleType()
-		{
-
-		}
+		public VehicleType() { }
 
 		public VehicleType(int id, string name, double taxCoefficient = 1d)
 		{
