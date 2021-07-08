@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.VisualBasic.FileIO;
 
 namespace AutoParkConsole.Classes
 {
@@ -17,18 +16,38 @@ namespace AutoParkConsole.Classes
 			LoadRents(rents);
 		}
 
-		List<VehicleType> LoadVehicleTypes(string inFile)
+		private string[] ParseCsvData(string[] rawCsvData)
+		{
+			string[] result = new string[rawCsvData.Length];
+
+			for (int counter = 0; counter < rawCsvData.Length; counter++)
+			{
+				if (rawCsvData[counter].StartsWith("\""))
+				{
+					result[counter] = rawCsvData[counter].TrimStart('\"') + ',' + rawCsvData[counter + 1].TrimEnd('\"');
+					counter++;
+				}
+				else
+				{
+					result[counter] = rawCsvData[counter];
+				}
+			}
+
+			return result;
+		}
+
+		private List<VehicleType> LoadVehicleTypes(string inFile)
 		{
 			List<VehicleType> result = new List<VehicleType>();
 			try
 			{
-				using (TextFieldParser reader = new TextFieldParser(inFile))
+				using (StreamReader reader = new StreamReader(inFile))
 				{
-					reader.SetDelimiters(",");
-					reader.HasFieldsEnclosedInQuotes = true;
-					while (!reader.EndOfData)
+
+					while (!reader.EndOfStream)
 					{
-						result.Add(CreateType(reader.ReadFields()));
+						string[] rawCsvData = reader.ReadLine().Split(',');
+						result.Add(CreateType(ParseCsvData(rawCsvData)));
 					}
 				}
 			}
@@ -42,28 +61,26 @@ namespace AutoParkConsole.Classes
 				throw new FileLoadException(nameof(inFile));
 			}
 
-
 			return result;
 		}
-		List<Vehicle> LoadVehicle(string inFile)
+
+		private List<Vehicle> LoadVehicle(string inFile)
 		{
 			List<Vehicle> result = new List<Vehicle>();
 
 			try
 			{
-				using (TextFieldParser reader = new TextFieldParser(inFile))
+				using (StreamReader reader = new StreamReader(inFile))
 				{
-					reader.SetDelimiters(",");
-					reader.HasFieldsEnclosedInQuotes = true;
-					while (!reader.EndOfData)
+					while (!reader.EndOfStream)
 					{
-						result.Add(CreateVehicle(reader.ReadFields()));
+						string[] rawCsvData = reader.ReadLine().Split(',');
+						result.Add(CreateVehicle(ParseCsvData(rawCsvData)));
 					}
 				}
 			}
 			catch (FileNotFoundException)
 			{
-
 				throw new FileNotFoundException(nameof(inFile));
 			}
 			catch (FileLoadException)
@@ -73,7 +90,8 @@ namespace AutoParkConsole.Classes
 
 			return result;
 		}
-		Vehicle CreateVehicle(string[] csvData)
+
+		private Vehicle CreateVehicle(string[] csvData)
 		{
 			int vehicleId = Convert.ToInt32(csvData[0]);
 			AbstractEngine vehicleEngine = null;
@@ -120,35 +138,42 @@ namespace AutoParkConsole.Classes
 				vehicleColor,
 				vehicleTankCapacity);
 		}
-		VehicleType CreateType(string[] csvData)
+
+		private VehicleType CreateType(string[] csvData)
 		{
 			return new VehicleType((Convert.ToInt32(csvData[0])), csvData[1], Convert.ToDouble(csvData[2]));
 		}
-		void LoadRents(string inFile)
+
+		private void CreateRent(string[] csvData)
+		{
+			int vehicleId = Convert.ToInt32(csvData[0]);
+			DateTime rentDate = Convert.ToDateTime(csvData[1]);
+			decimal rentCost = Convert.ToDecimal(csvData[2]);
+
+			foreach (Vehicle vehicle in Vehicles)
+			{
+				if (vehicle.Id == vehicleId)
+				{
+					List<Rent> rentList = vehicle.Rents ?? new List<Rent>();
+					rentList.Add(new Rent(rentDate, rentCost));
+					vehicle.Rents = rentList;
+				}
+			}
+		}
+
+		private void LoadRents(string inFile)
 		{
 			try
 			{
-				using (TextFieldParser reader = new TextFieldParser(inFile))
+				using (StreamReader reader = new StreamReader(inFile))
 				{
-					reader.SetDelimiters(",");
-					reader.HasFieldsEnclosedInQuotes = true;
-					while (!reader.EndOfData)
+					while (!reader.EndOfStream)
 					{
-						string[] fields = reader.ReadFields();
+						string[] rawCsvData = reader.ReadLine().Split(',');
 
-						int vehicleId = Convert.ToInt32(fields[0]);
-						DateTime rentDate = Convert.ToDateTime(fields[1]);
-						decimal rentCost = Convert.ToDecimal(fields[2]);
+						string[] csvData = ParseCsvData(rawCsvData);
 
-						foreach (Vehicle vehicle in Vehicles)
-						{
-							if (vehicle.Id == vehicleId)
-							{
-								List<Rent> rentList = vehicle.Rents ?? new List<Rent>();
-								rentList.Add(new Rent(rentDate, rentCost));
-								vehicle.Rents = rentList;
-							}
-						}
+						CreateRent(csvData);
 					}
 				}
 			}
@@ -162,6 +187,7 @@ namespace AutoParkConsole.Classes
 				throw new FileLoadException(nameof(inFile));
 			}
 		}
+
 		public void Insert(int index, Vehicle vehicle)
 		{
 			if (index < 0 || index > Vehicles.Count - 1)
@@ -173,6 +199,7 @@ namespace AutoParkConsole.Classes
 				Vehicles.Insert(index, vehicle);
 			}
 		}
+
 		public int Delete(int index)
 		{
 			if (index < 0 || index > Vehicles.Count - 1)
@@ -185,6 +212,7 @@ namespace AutoParkConsole.Classes
 				return index;
 			}
 		}
+
 		public decimal SumTotalProfit()
 		{
 			decimal sumTotalProfit = 0m;
@@ -195,6 +223,7 @@ namespace AutoParkConsole.Classes
 
 			return sumTotalProfit;
 		}
+
 		public void Print()
 		{
 			Console.WriteLine($"{"ID",-5}{"Type",-10}{"Model name",-25}{"Number",-15}{"Weight(kg)",-15}" +
@@ -215,6 +244,7 @@ namespace AutoParkConsole.Classes
 			}
 			Console.WriteLine($"Total: {SumTotalProfit(),120:0.00}");
 		}
+
 		public void Sort()
 		{
 			Vehicles.Sort(new VehicleComparer());
