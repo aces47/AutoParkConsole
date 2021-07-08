@@ -29,7 +29,7 @@ namespace AutoParkConsole.Classes
             int manufactureYear,
             int mileage,
             Color color,
-            int tankCapacity = 0)
+            double tankCapacity = 0)
         {
             AbstractEngine = engine;
             VehicleType = type;
@@ -42,6 +42,8 @@ namespace AutoParkConsole.Classes
             TankCapacity = tankCapacity;
             Id = id;
         }
+
+        public decimal GetTotalProfit() => GetTotalVehicleIncome() - (decimal)GetCalcTaxPerMonth();
 
         public decimal GetTotalVehicleIncome()
         {
@@ -75,6 +77,7 @@ namespace AutoParkConsole.Classes
 
             return false;
         }
+
         public override string ToString() =>
             $"{AbstractEngine},{VehicleType},{ModelName},{GosNumber},{Weight},{ManufactureYear},{Mileage},{Color},{TankCapacity}";
 
@@ -85,6 +88,5 @@ namespace AutoParkConsole.Classes
 
             return thisTaxCoefficient.CompareTo(otherTaxCoefficient);
         }
-
     }
 }
