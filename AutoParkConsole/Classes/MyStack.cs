@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoParkConsole.Classes
 {
-	class MyStack<T>
+	internal class MyStack<T>
 	{
 		T[] _stack;
 		int _capacity;
@@ -33,7 +33,7 @@ namespace AutoParkConsole.Classes
 			_lastIndex = _capacity - 1;
 		}
 
-		void Resize()
+		private void Resize()
 		{
 			T[] newStack = null;
 
