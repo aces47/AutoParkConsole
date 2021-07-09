@@ -7,36 +7,36 @@ using System.Threading.Tasks;
 
 namespace AutoParkConsole.Classes
 {
-	internal class MechanicOrders
-	{
-		private Dictionary<string, int> _orders;
+    internal class MechanicOrders
+    {
+        private Dictionary<string, int> Orders { get; }
 
-		public MechanicOrders(string inFile)
-		{
-			_orders = new Dictionary<string, int>();
-			using (StreamReader reader = new StreamReader(inFile))
-			{
-				while (!reader.EndOfStream)
-				{
-					string[] fieldsOfParts = reader.ReadLine().Split(',');
+        public MechanicOrders(string inFile)
+        {
+            Orders = new Dictionary<string, int>();
+            using (StreamReader reader = new StreamReader(inFile))
+            {
+                while (!reader.EndOfStream)
+                {
+                    string[] fieldsOfParts = reader.ReadLine().Split(',');
 
-					foreach (string row in fieldsOfParts)
-					{
-						if (!_orders.TryAdd(row, 1))
-						{
-							_orders[row]++;
-						}
-					}
-				}
-			}
-		}
+                    foreach (string row in fieldsOfParts)
+                    {
+                        if (!Orders.TryAdd(row, 1))
+                        {
+                            Orders[row]++;
+                        }
+                    }
+                }
+            }
+        }
 
-		public void Print()
-		{
-			foreach (var item in _orders)
-			{
-				Console.WriteLine($"{item.Key} - {item.Value} шт.");
-			}
-		}
-	}
+        public void Print()
+        {
+            foreach (var item in Orders)
+            {
+                Console.WriteLine($"{item.Key} - {item.Value} шт.");
+            }
+        }
+    }
 }
