@@ -85,7 +85,7 @@ namespace AutoParkConsole.Classes
         {
             double thisTaxCoefficient = VehicleType.TaxCoefficient;
             double otherTaxCoefficient = other.VehicleType.TaxCoefficient;
-
+            
             return thisTaxCoefficient.CompareTo(otherTaxCoefficient);
         }
     }
